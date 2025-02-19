@@ -27,6 +27,9 @@ textarea {
 }
 
 span {
+    filter: saturate(200%);
+    filter: brightness(90%);
+    filter: contrast(90%);
     padding-right: 1lh;
     font-size: 1.1em;
     font-weight: bolder;
