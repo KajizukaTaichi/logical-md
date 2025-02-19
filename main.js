@@ -71,6 +71,9 @@ function stylePrefix(code) {
     } else if (code.startsWith("? ")) {
         code = code.replace("? ", "").trim();
         elm.innerHTML = `${styleHelper("もし", "blueviolet")}${code}？`;
+    } else if (code.startsWith("; ")) {
+        code = code.replace("; ", "").trim();
+        elm.innerHTML = `${styleHelper("例えば", "tan")}${code}`;
     } else if (code.startsWith("+ ")) {
         code = code.replace("+ ", "").trim();
         elm.innerHTML = `${styleHelper("だとすると", "chocolate")}${code}`;
