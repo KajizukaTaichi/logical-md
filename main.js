@@ -59,6 +59,9 @@ function stylePrefix(code) {
     if (code.startsWith("# ")) {
         code = code.replace("# ", "").trim();
         elm.innerHTML = `${styleHelper("命題", "blue")}${code}`;
+    } else if (code.startsWith("@ ")) {
+        code = code.replace("@ ", "").trim();
+        elm.innerHTML = `${styleHelper("前提", "darkcyan")}${code}`;
     } else if (code.startsWith("! ")) {
         code = code.replace("! ", "").trim();
         elm.innerHTML = `${styleHelper("反論", "red")}${code}`;
@@ -70,7 +73,7 @@ function stylePrefix(code) {
         elm.innerHTML = `${styleHelper("もし", "blueviolet")}${code}？`;
     } else if (code.startsWith("+ ")) {
         code = code.replace("+ ", "").trim();
-        elm.innerHTML = `${styleHelper("だとすると", "darkcyan")}${code}`;
+        elm.innerHTML = `${styleHelper("だとすると", "chocolate")}${code}`;
     } else if (code.startsWith("- ")) {
         code = code.replace("- ", "").trim();
         elm.innerHTML = `${styleHelper("でなければ", "violet")}${code}`;
