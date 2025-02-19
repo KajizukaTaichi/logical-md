@@ -71,12 +71,15 @@ function stylePrefix(code) {
     } else if (code.startsWith("? ")) {
         code = code.replace("? ", "").trim();
         elm.innerHTML = `${styleHelper("疑問", "blueviolet")}${code}？`;
+    } else if (code.startsWith("¥ ")) {
+        code = code.replace("¥ ", "").trim();
+        elm.innerHTML = `${styleHelper("仮定", "yellowgreen")}${code}`;
     } else if (code.startsWith("; ")) {
         code = code.replace("; ", "").trim();
         elm.innerHTML = `${styleHelper("例えば", "darkkhaki")}${code}`;
     } else if (code.startsWith("+ ")) {
         code = code.replace("+ ", "").trim();
-        elm.innerHTML = `${styleHelper("だとすると", "chocolate")}${code}`;
+        elm.innerHTML = `${styleHelper("その場合", "chocolate")}${code}`;
     } else if (code.startsWith("- ")) {
         code = code.replace("- ", "").trim();
         elm.innerHTML = `${styleHelper("でなければ", "violet")}${code}`;
