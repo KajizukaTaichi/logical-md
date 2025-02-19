@@ -1,0 +1,42 @@
+ul {
+    list-style-type: lower-greek;
+    padding-left: 30px;
+}
+
+button {
+    border-radius: 5px;
+    border-style: none;
+    padding: 10px;
+    background-color: lightblue;
+}
+
+body {
+    margin: 3vh;
+}
+
+textarea {
+    resize: none;
+    width: 100%;
+    opacity: 90%;
+    height: 10lh;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-weight: lighter;
+    font-family: Verdana, Geneva, Tahoma, monospace;
+}
+
+span {
+    padding-right: 1lh;
+    font-size: 1.1em;
+    font-weight: bolder;
+}
+
+.titlebar {
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+.baritem {
+    display: inline;
+    margin-right: 10px;
+}
