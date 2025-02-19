@@ -70,10 +70,10 @@ function stylePrefix(code) {
         elm.innerHTML = `${styleHelper("なぜなら", "cornflowerblue")}${code}`;
     } else if (code.startsWith("? ")) {
         code = code.replace("? ", "").trim();
-        elm.innerHTML = `${styleHelper("もし", "blueviolet")}${code}？`;
+        elm.innerHTML = `${styleHelper("疑問", "blueviolet")}${code}？`;
     } else if (code.startsWith("; ")) {
         code = code.replace("; ", "").trim();
-        elm.innerHTML = `${styleHelper("例えば", "tan")}${code}`;
+        elm.innerHTML = `${styleHelper("例えば", "darkkhaki")}${code}`;
     } else if (code.startsWith("+ ")) {
         code = code.replace("+ ", "").trim();
         elm.innerHTML = `${styleHelper("だとすると", "chocolate")}${code}`;
