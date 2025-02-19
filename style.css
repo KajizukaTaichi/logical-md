@@ -1,5 +1,6 @@
 ul {
     list-style-type: lower-greek;
+    border-left: 1px solid lightgray;
     padding-left: 30px;
 }
 
