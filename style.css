@@ -1,5 +1,5 @@
 ul {
-    list-style-type: lower-greek;
+    list-style-type: decimal;
     border-left: 1px solid lightgray;
     padding-left: 30px;
 }
