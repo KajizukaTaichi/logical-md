@@ -30,23 +30,27 @@ function parseIndentBasedText(lines, indentLevel = 0) {
     return nodes;
 }
 
-function showAsHTML(ast) {
+function showAsHTML(ast, idx = "link") {
     if (ast.children.length == 0) {
         let elm = document.createElement("p");
+        elm.id = idx;
         elm.innerHTML = stylePrefix(ast.value);
         return elm;
     } else {
         let divElm = document.createElement("div");
 
         let textElm = document.createElement("p");
+        textElm.id = idx;
         textElm.innerHTML = stylePrefix(ast.value);
         divElm.appendChild(textElm);
 
         let listElm = document.createElement("ul");
+        let index = 1;
         for (i of ast.children) {
             let liElm = document.createElement("li");
-            liElm.appendChild(showAsHTML(i));
+            liElm.appendChild(showAsHTML(i, `${idx}-${index}`));
             listElm.appendChild(liElm);
+            index += 1;
         }
         divElm.appendChild(listElm);
 
@@ -78,8 +82,16 @@ function stylePrefix(code) {
         code = code.replace("¥ ", "").trim();
         return `${styleHelper("仮定", "yellowgreen")}${stylePrefix(code)}`;
     } else if (code.startsWith("& ")) {
-        code = code.replace("& ", "").trim();
-        return `${styleHelper("参照", "sandybrown")}${stylePrefix(code)}`;
+        code = `link-${code.replace("& ", "").trim()}`;
+        return `
+            ${styleHelper("参照", "sandybrown")}
+            <a
+                href="#${code}"
+                onmouseenter="refer(this, '${code}')"
+                onmouseleave="this.innerHTML = '${code} 見る'"
+                onclick="focusElm('${code}');"
+            >${code} 見る</a>
+        `;
     } else if (code.startsWith("; ")) {
         code = code.replace("; ", "").trim();
         return `${styleHelper("例えば", "darkkhaki")}${stylePrefix(code)}`;
@@ -118,6 +130,18 @@ editor.addEventListener("keydown", function (event) {
         editor.selectionEnd = cousor + indent.length;
     }
 });
+
+function focusElm(id) {
+    let elm = document.getElementById(id);
+    elm.style.backgroundColor = "yellow";
+    setTimeout((elm) => (elm.style.backgroundColor = "white"), 3000, elm);
+}
+
+function refer(from, to) {
+    let elm = document.getElementById(to);
+    console.log(elm.innerHTML);
+    from.innerText = elm.innerText.slice(0, 5) + "...";
+}
 
 function display() {
     let code = editor.value;
