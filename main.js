@@ -83,14 +83,15 @@ function stylePrefix(code) {
         return `${styleHelper("仮定", "yellowgreen")}${stylePrefix(code)}`;
     } else if (code.startsWith("& ")) {
         code = `link-${code.replace("& ", "").trim()}`;
+        let toShow = code.replace("link-", "").split("-").join("の");
         return `
             ${styleHelper("参照", "sandybrown")}
             <a
                 href="#${code}"
                 onmouseenter="refer(this, '${code}')"
-                onmouseleave="this.innerHTML = '${code} 見る'"
+                onmouseleave="this.innerHTML = '${toShow}'"
                 onclick="focusElm('${code}');"
-            >${code} 見る</a>
+            >${toShow}</a>
         `;
     } else if (code.startsWith("; ")) {
         code = code.replace("; ", "").trim();
@@ -140,7 +141,7 @@ function focusElm(id) {
 function refer(from, to) {
     let elm = document.getElementById(to);
     console.log(elm.innerHTML);
-    from.innerText = elm.innerText.slice(0, 5) + "...";
+    from.innerText = elm.innerText.slice(0, 8) + "...";
 }
 
 function display() {
