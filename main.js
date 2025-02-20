@@ -32,21 +32,25 @@ function parseIndentBasedText(lines, indentLevel = 0) {
 
 function showAsHTML(ast) {
     if (ast.children.length == 0) {
-        return stylePrefix(ast.value);
-    } else {
-        console.log(ast.children);
-        let elm = document.createElement("div");
-        elm.appendChild(stylePrefix(ast.value));
-
-        let list = document.createElement("ul");
-        for (i of ast.children) {
-            let li = document.createElement("li");
-            li.appendChild(showAsHTML(i));
-            list.appendChild(li);
-        }
-        elm.appendChild(list);
-
+        let elm = document.createElement("p");
+        elm.innerHTML = stylePrefix(ast.value);
         return elm;
+    } else {
+        let divElm = document.createElement("div");
+
+        let textElm = document.createElement("p");
+        textElm.innerHTML = stylePrefix(ast.value);
+        divElm.appendChild(textElm);
+
+        let listElm = document.createElement("ul");
+        for (i of ast.children) {
+            let liElm = document.createElement("li");
+            liElm.appendChild(showAsHTML(i));
+            listElm.appendChild(liElm);
+        }
+        divElm.appendChild(listElm);
+
+        return divElm;
     }
 }
 
@@ -55,47 +59,48 @@ function styleHelper(text, color) {
 }
 
 function stylePrefix(code) {
-    let elm = document.createElement("p");
     if (code.startsWith("# ")) {
         code = code.replace("# ", "").trim();
-        elm.innerHTML = `${styleHelper("命題", "blue")}${code}`;
+        return `${styleHelper("命題", "blue")}${stylePrefix(code)}`;
     } else if (code.startsWith("@ ")) {
         code = code.replace("@ ", "").trim();
-        elm.innerHTML = `${styleHelper("前提", "darkcyan")}${code}`;
+        return `${styleHelper("前提", "darkcyan")}${stylePrefix(code)}`;
     } else if (code.startsWith("! ")) {
         code = code.replace("! ", "").trim();
-        elm.innerHTML = `${styleHelper("反論", "red")}${code}`;
+        return `${styleHelper("反論", "red")}${stylePrefix(code)}`;
     } else if (code.startsWith("/ ")) {
         code = code.replace("/ ", "").trim();
-        elm.innerHTML = `${styleHelper("なぜなら", "cornflowerblue")}${code}`;
+        return `${styleHelper("なぜなら", "cornflowerblue")}${stylePrefix(code)}`;
     } else if (code.startsWith("? ")) {
         code = code.replace("? ", "").trim();
-        elm.innerHTML = `${styleHelper("疑問", "blueviolet")}${code}？`;
+        return `${styleHelper("疑問", "blueviolet")}${stylePrefix(code)}？`;
     } else if (code.startsWith("¥ ")) {
         code = code.replace("¥ ", "").trim();
-        elm.innerHTML = `${styleHelper("仮定", "yellowgreen")}${code}`;
+        return `${styleHelper("仮定", "yellowgreen")}${stylePrefix(code)}`;
+    } else if (code.startsWith("& ")) {
+        code = code.replace("& ", "").trim();
+        return `${styleHelper("参照", "sandybrown")}${stylePrefix(code)}`;
     } else if (code.startsWith("; ")) {
         code = code.replace("; ", "").trim();
-        elm.innerHTML = `${styleHelper("例えば", "darkkhaki")}${code}`;
+        return `${styleHelper("例えば", "darkkhaki")}${stylePrefix(code)}`;
     } else if (code.startsWith("+ ")) {
         code = code.replace("+ ", "").trim();
-        elm.innerHTML = `${styleHelper("その場合", "chocolate")}${code}`;
+        return `${styleHelper("その場合", "chocolate")}${stylePrefix(code)}`;
     } else if (code.startsWith("- ")) {
         code = code.replace("- ", "").trim();
-        elm.innerHTML = `${styleHelper("でなければ", "violet")}${code}`;
+        return `${styleHelper("でなければ", "violet")}${stylePrefix(code)}`;
     } else if (code.startsWith(", ")) {
         code = code.replace(", ", "").trim();
-        elm.innerHTML = `${styleHelper("そして", "grey")}${code}`;
+        return `${styleHelper("そして", "grey")}${stylePrefix(code)}`;
     } else if (code.startsWith("= ")) {
         code = code.replace("= ", "").trim();
-        elm.innerHTML = `${styleHelper("故に", "green")}${code}`;
+        return `${styleHelper("故に", "green")}${stylePrefix(code)}`;
     } else if (code.startsWith("== ")) {
         code = code.replace("== ", "").trim();
-        elm.innerHTML = `${styleHelper("結論", "goldenrod")}${code}`;
+        return `${styleHelper("結論", "goldenrod")}${stylePrefix(code)}`;
     } else {
-        elm.innerHTML = `${code}`;
+        return code;
     }
-    return elm;
 }
 
 let editor = document.getElementById("editor");
